@@ -83,8 +83,30 @@ def my_imfilter(image, filter):
   ############################
   ### TODO: YOUR CODE HERE ###
 
-  raise NotImplementedError('`my_imfilter` function in `student_code.py` ' +
-    'needs to be implemented')
+  # 1. support grayscale and color images
+  # 2. support arbitrarily-shaped filters with odd dimensions
+  # 3. pad the input image with zeros or reflected image content
+  # 4. return a filtered image which is the same resolution as the input image
+  
+  # padding
+  padding_height = filter.shape[0] // 2
+  padding_width = filter.shape[1] // 2
+  padded_image = np.zeros((image.shape[0] + padding_height * 2, image.shape[1] + padding_width * 2, image.shape[2]))
+  padded_image[padding_height:padding_height + image.shape[0], padding_width:padding_width + image.shape[1]] = image
+
+  # init the filtered image
+  filtered_image = np.zeros((image.shape[0], image.shape[1], image.shape[2]))
+
+  # reconstruct the filter to broadcast
+  filter = filter.reshape(filter.shape[0], filter.shape[1], 1)
+
+  # filtering
+  for i in range(padding_height, filtered_image.shape[0] + padding_height):
+    for j in range(padding_width, filtered_image.shape[1] + padding_width):
+      filtered_box = filter * padded_image[i - padding_height:i + padding_height + 1, j - padding_width:j + padding_width + 1]
+      # I used mean and I spent half an hour wondering why my image looks so dark
+      filtered_pix = np.sum(filtered_box.reshape(filtered_box.shape[0]*filtered_box.shape[1],filtered_box.shape[2]), axis=0)
+      filtered_image[i - padding_height][j - padding_width] = filtered_pix
 
   ### END OF STUDENT CODE ####
   ############################
