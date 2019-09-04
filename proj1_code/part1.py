@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import numpy as np
-
+import math
 
 def create_Gaussian_kernel(cutoff_frequency):
   """
@@ -28,8 +28,29 @@ def create_Gaussian_kernel(cutoff_frequency):
   ############################
   ### TODO: YOUR CODE HERE ###
 
-  raise NotImplementedError('`create_Gaussian_kernel` function in '
-    + '`student_code.py` needs to be implemented')
+  # the general gaussian function
+  # mean and std are calculated below
+  def gaussian(x):
+    # make sure it is symmetrical by starting with 1
+    x += 1
+    return np.exp(-np.power((x - mean) / std, 2) / 2) / (math.sqrt(2 * math.pi) * std)
+  
+  # preparing the parameters
+  k = cutoff_frequency * 4 + 1
+  mean = k // 2 + 1
+  std = cutoff_frequency
+
+  # generate the 1d gaussian array
+  one_d_gaussian = np.fromfunction(gaussian, (k,))
+
+  # validate the 1d gaussian by eyeballing, make sure it's symmetrical
+  # print(one_d_gaussian)
+
+  # compute the 2d array as the outer product of two 1d array
+  kernel = np.outer(one_d_gaussian, one_d_gaussian)
+  
+  # normalize
+  kernel /= np.sum(kernel)
 
   ### END OF STUDENT CODE ####
   ############################
