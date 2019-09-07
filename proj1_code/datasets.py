@@ -34,8 +34,16 @@ def make_dataset(path: str) -> Tuple[List[str],List[str]]:
   ############################
   ### TODO: YOUR CODE HERE ###
 
-  raise NotImplementedError('`make_dataset` function in `datasets.py` needs '
-    + 'to be implemented')
+  full_dir = os.listdir("../data")
+  full_dir.sort()
+  images_a, images_b = [], []
+
+  for file_str in full_dir:
+    index = file_str.find("_") - 1
+    if file_str[index] == "a":
+      images_a.append(file_str)
+    else:
+      images_b.append(file_str)  
 
   ### END OF STUDENT CODE ####
   ############################
