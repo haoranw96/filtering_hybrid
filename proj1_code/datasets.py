@@ -120,8 +120,7 @@ class HybridImageDataset(data.Dataset):
     ############################
     ### TODO: YOUR CODE HERE ###
 
-    raise NotImplementedError('`__len__` function in `datasets.py` needs to '
-      + 'be implemented')
+    return len(self.images_a)
 
     ### END OF STUDENT CODE ####
     ############################
