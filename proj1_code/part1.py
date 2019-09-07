@@ -42,7 +42,7 @@ def create_Gaussian_kernel(cutoff_frequency):
   
   # preparing the parameters
   k = cutoff_frequency * 4 + 1
-  mean = k // 2 + 1
+  mean = k // 2
   std = cutoff_frequency
 
   # generate the 1d gaussian array
