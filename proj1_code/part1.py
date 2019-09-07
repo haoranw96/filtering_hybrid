@@ -96,8 +96,13 @@ def my_imfilter(image, filter):
   # padding
   padding_height = filter.shape[0] // 2
   padding_width = filter.shape[1] // 2
+  padded_image = np.pad(image, ((padding_height, padding_height),(padding_width, padding_width), (0, 0)), "edge")
+
+  """
+  # padding manually
   padded_image = np.zeros((image.shape[0] + padding_height * 2, image.shape[1] + padding_width * 2, image.shape[2]))
   padded_image[padding_height:padding_height + image.shape[0], padding_width:padding_width + image.shape[1]] = image
+  """
 
   # init the filtered image
   filtered_image = np.zeros((image.shape[0], image.shape[1], image.shape[2]))
