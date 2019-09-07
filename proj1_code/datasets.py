@@ -41,9 +41,9 @@ def make_dataset(path: str) -> Tuple[List[str],List[str]]:
   for file_str in full_dir:
     index = file_str.find("_") - 1
     if file_str[index] == "a":
-      images_a.append(file_str)
+      images_a.append(path + "/" + file_str)
     else:
-      images_b.append(file_str)  
+      images_b.append(path + "/" + file_str)  
 
   ### END OF STUDENT CODE ####
   ############################
@@ -72,7 +72,7 @@ def get_cutoff_frequencies(path: str) -> List[int]:
   file = open(path, "r")
   cutoff_frequencies = file.readlines()
   for i in range(len(cutoff_frequencies)):
-    cutoff_frequencies[i] = cutoff_frequencies[i].rstrip()
+    cutoff_frequencies[i] = int(cutoff_frequencies[i].rstrip())
 
   ### END OF STUDENT CODE ####
   ############################
@@ -152,8 +152,14 @@ class HybridImageDataset(data.Dataset):
     ############################
     ### TODO: YOUR CODE HERE ###
 
-    raise NotImplementedError('`__getitem__ function in `datasets.py` needs '
-      + 'to be implemented')
+    cutoff_frequency = self.cutoff_frequencies[idx]
+
+    image_a_path = self.images_a[idx]
+    image_a = self.transform(PIL.Image.open(image_a_path))
+  
+    image_b_path = self.images_b[idx]
+    image_b = self.transform(PIL.Image.open(image_b_path))
+
 
     ### END OF STUDENT CODE ####
     ############################
