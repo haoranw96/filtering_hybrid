@@ -85,6 +85,7 @@ class HybridImageModel(nn.Module):
 
     filtered_image = F.conv2d(x, kernel, padding = kernel.shape[2] // 2, groups = self.n_channels)
 
+
     ### END OF STUDENT CODE ####
     ############################
 
@@ -97,13 +98,13 @@ class HybridImageModel(nn.Module):
     image.
 
     Args
-    - image1: Tensor of shape (b, m, n, c)
-    - image2: Tensor of shape (b, m, n, c)
+    - image1: Tensor of shape (b, c, m, n)
+    - image2: Tensor of shape (b, c, m, n)
     - cutoff_frequency: Tensor of shape (b)
     Returns:
-    - low_frequencies: Tensor of shape (b, m, n, c)
-    - high_frequencies: Tensor of shape (b, m, n, c)
-    - hybrid_image: Tensor of shape (b, m, n, c)
+    - low_frequencies: Tensor of shape (b, c, m, n)
+    - high_frequencies: Tensor of shape (b, c, m, n)
+    - hybrid_image: Tensor of shape (b, c, m, n)
 
     HINTS:
     - You will use the get_kernel() function and your low_pass() function in
@@ -120,8 +121,10 @@ class HybridImageModel(nn.Module):
     ############################
     ### TODO: YOUR CODE HERE ###
 
-    raise NotImplementedError('`forward` function in `models.py` needs to '
-      + 'be implemented')
+    kernel = self.get_kernel(int(cutoff_frequency.item()))
+    low_frequencies = self.low_pass(image1, kernel)
+    high_frequencies = image2 - self.low_pass(image2, kernel)
+    hybrid_image = torch.clamp(low_frequencies + high_frequencies, 0, 1)
 
     ### END OF STUDENT CODE ####
     ############################

@@ -107,6 +107,7 @@ class HybridImageDataset(data.Dataset):
 
     self.transform = transforms.ToTensor()
 
+
     ### END OF STUDENT CODE ####
     ############################
 
@@ -121,6 +122,7 @@ class HybridImageDataset(data.Dataset):
     ### TODO: YOUR CODE HERE ###
 
     return len(self.images_a)
+
 
     ### END OF STUDENT CODE ####
     ############################
@@ -159,7 +161,6 @@ class HybridImageDataset(data.Dataset):
   
     image_b_path = self.images_b[idx]
     image_b = self.transform(PIL.Image.open(image_b_path))
-
 
     ### END OF STUDENT CODE ####
     ############################

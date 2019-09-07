@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import numpy as np
-import math
+
 
 def create_Gaussian_kernel(cutoff_frequency):
   """
@@ -10,7 +10,7 @@ def create_Gaussian_kernel(cutoff_frequency):
 
   The kernel should have:
   - shape (k, k) where k = cutoff_frequency * 4 + 1
-  - mean = k // 2 + 1
+  - mean = floor(k / 2)
   - standard deviation = cutoff_frequency
   - values that sum to 1
 
@@ -22,23 +22,22 @@ def create_Gaussian_kernel(cutoff_frequency):
 
   HINT:
   - The 2D Gaussian kernel here can be calculated as the outer product of two
-    vectors drawn from 1D Gaussian distributions.
+    vectors with values populated from evaluating the 1D Gaussian PDF at each
+    corrdinate.
   """
 
   ############################
   ### TODO: YOUR CODE HERE ###
 
-
-  """
   # the general gaussian function
   # mean and std are calculated below
   def gaussian(x):
     # make sure it is symmetrical by starting with 1
     x += 1
-    return np.exp(-np.power((x - mean) / std, 2) / 2) / (math.sqrt(2 * math.pi) * std)
-  """
+    return np.exp(-np.power((x - mean) / std, 2) / 2) / (np.sqrt(2 * math.pi) * std)
 
-  gaussian = lambda x: np.exp(-np.power((x + 1 - mean) / std, 2) / 2) / (math.sqrt(2 * math.pi) * std)
+
+  #gaussian = lambda x: np.exp(-np.power((x + 1 - mean) / std, 2) / 2) / (math.sqrt(2 * math.pi) * std)
   
   # preparing the parameters
   k = cutoff_frequency * 4 + 1
