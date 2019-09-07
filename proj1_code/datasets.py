@@ -69,8 +69,10 @@ def get_cutoff_frequencies(path: str) -> List[int]:
   ############################
   ### TODO: YOUR CODE HERE ###
 
-  raise NotImplementedError('`get_cutoff_frequencies` function in '
-    + '`datasets.py` needs to be implemented')
+  file = open(path, "r")
+  cutoff_frequencies = file.readlines()
+  for i in range(len(lines)):
+    cutoff_frequencies[i] = cutoff_frequencies[i].rstrip()
 
   ### END OF STUDENT CODE ####
   ############################
