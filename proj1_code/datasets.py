@@ -34,7 +34,7 @@ def make_dataset(path: str) -> Tuple[List[str],List[str]]:
   ############################
   ### TODO: YOUR CODE HERE ###
 
-  full_dir = os.listdir("../data")
+  full_dir = os.listdir(path)
   full_dir.sort()
   images_a, images_b = [], []
 
@@ -71,7 +71,7 @@ def get_cutoff_frequencies(path: str) -> List[int]:
 
   file = open(path, "r")
   cutoff_frequencies = file.readlines()
-  for i in range(len(lines)):
+  for i in range(len(cutoff_frequencies)):
     cutoff_frequencies[i] = cutoff_frequencies[i].rstrip()
 
   ### END OF STUDENT CODE ####
@@ -105,8 +105,7 @@ class HybridImageDataset(data.Dataset):
     ############################
     ### TODO: YOUR CODE HERE ###
 
-    raise NotImplementedError('`self.transform` function in `datasets.py` needs to '
-      + 'be implemented')
+    self.transform = transforms.ToTensor()
 
     ### END OF STUDENT CODE ####
     ############################
