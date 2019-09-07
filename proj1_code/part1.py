@@ -33,15 +33,13 @@ def create_Gaussian_kernel(cutoff_frequency):
   # mean and std are calculated below
   def gaussian(x):
     # make sure it is symmetrical by starting with 1
-    x += 1
-    return np.exp(-np.power((x - mean) / std, 2) / 2) / (np.sqrt(2 * math.pi) * std)
+    return np.exp(-np.power((x - mean) / std, 2) / 2) / (np.sqrt(2 * np.pi) * std)
 
-
-  #gaussian = lambda x: np.exp(-np.power((x + 1 - mean) / std, 2) / 2) / (math.sqrt(2 * math.pi) * std)
+  #gaussian = lambda x: np.exp(-np.power((x + 1 - mean) / std, 2) / 2) / (np.sqrt(2 * np.pi) * std)
   
   # preparing the parameters
   k = cutoff_frequency * 4 + 1
-  mean = k // 2
+  mean = np.floor(k / 2)
   std = cutoff_frequency
 
   # generate the 1d gaussian array

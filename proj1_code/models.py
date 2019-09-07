@@ -121,6 +121,7 @@ class HybridImageModel(nn.Module):
     ############################
     ### TODO: YOUR CODE HERE ###
 
+    # make sure that the cutoff_frequency is an int
     kernel = self.get_kernel(int(cutoff_frequency.item()))
     low_frequencies = self.low_pass(image1, kernel)
     high_frequencies = image2 - self.low_pass(image2, kernel)
