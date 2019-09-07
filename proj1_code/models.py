@@ -50,8 +50,11 @@ class HybridImageModel(nn.Module):
     ############################
     ### TODO: YOUR CODE HERE ###
 
-    raise NotImplementedError('`get_kernel` function in `models.py` needs ' +
-      'to be implemented')
+    raw_np_kenel = create_Gaussian_kernel(cutoff_frequency)
+    k = raw_np_kenel.shape[0]
+    flat_raw_np_kenel = raw_np_kenel.reshape(k * k)
+    tiled_raw_np_kernel = np.tile(flat_raw_np_kenel, self.n_channels).reshape(self.n_channels, 1, k, k)
+    kernel = torch.Tensor(tiled_raw_np_kernel)
 
     ### END OF STUDENT CODE ####
     ############################
@@ -80,8 +83,7 @@ class HybridImageModel(nn.Module):
     ############################
     ### TODO: YOUR CODE HERE ###
 
-    raise NotImplementedError('`low_pass` function in `models.py` needs to '
-      + 'be implemented')
+    filtered_image = F.conv2d(x, kernel, padding = kernel.shape[2] // 2, groups = self.n_channels)
 
     ### END OF STUDENT CODE ####
     ############################
