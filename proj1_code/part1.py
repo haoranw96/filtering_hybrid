@@ -28,12 +28,17 @@ def create_Gaussian_kernel(cutoff_frequency):
   ############################
   ### TODO: YOUR CODE HERE ###
 
+
+  """
   # the general gaussian function
   # mean and std are calculated below
   def gaussian(x):
     # make sure it is symmetrical by starting with 1
     x += 1
     return np.exp(-np.power((x - mean) / std, 2) / 2) / (math.sqrt(2 * math.pi) * std)
+  """
+
+  gaussian = lambda x: np.exp(-np.power((x + 1 - mean) / std, 2) / 2) / (math.sqrt(2 * math.pi) * std)
   
   # preparing the parameters
   k = cutoff_frequency * 4 + 1
@@ -149,8 +154,9 @@ def create_hybrid_image(image1, image2, filter):
   ############################
   ### TODO: YOUR CODE HERE ###
 
-  raise NotImplementedError('`create_hybrid_image` function in ' +
-    '`student_code.py` needs to be implemented')
+  low_frequencies = my_imfilter(image1, filter)
+  high_frequencies = image2 - my_imfilter(image2, filter)
+  hybrid_image = np.clip(low_frequencies + high_frequencies, 0, 1)
 
   ### END OF STUDENT CODE ####
   ############################
