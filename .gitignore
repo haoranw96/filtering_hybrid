@@ -1,6 +1,7 @@
 __pycache__
 
-results/
+results/part1/*
+results/part2/*
 
 4676_Fall2019_Proj1.egg-info
 
